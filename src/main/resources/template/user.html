@@ -7,6 +7,7 @@
     <link rel="stylesheet"
           th:href="@{https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.css}"/>
     <link rel="stylesheet" th:href="@{/css/main.css}">
+    <script src="https://ajaxzip3.github.io/ajaxzip3.js"></script>
 </head>
 <body>
 
@@ -155,7 +156,7 @@
                                 <td>
                                     <p>例：123-4567</p>
                                     <div class="field" th:classappend="${errors.hasError('zipCode')} ? 'error'">
-                                        <input type="text" class="zipcode" name="zipCode" th:value="${form.zipCode}"/>
+                                        <input type="text" class="zipcode" name="zipCode" th:value="${form.zipCode}" onKeyUp="AjaxZip3.zip2addr(this,'','address','address')" />
                                         <p th:if="${errors.hasError('zipCode')}"
                                            th:text="${errors.getMessage('zipCode')}" class="error-message">
                                         </p>
@@ -180,14 +181,14 @@
                             <tr>
                                 <td>
                                     <label>自宅電話番号（半角）</label>
-                                    <p style="color:red;">＊</p>
+                                    <p style="color:red;"></p>
                                 </td>
                                 <td>
                                     <p>例：00-1111-2222</p>
                                     <div class="field" th:classappend="${errors.hasError('homePhoneNumber')} ? 'error'">
                                         <input type="text" name="homePhoneNumber" th:value="${form.homePhoneNumber}"/>
-                                        <p th:if="${errors.hasError('homePhoneNumber')}"
-                                           th:text="${errors.getMessage('homePhoneNumber')}" class="error-message">
+                                        <p th:if="${errors.hasError('valueMedicalHistory222')}"
+                                           th:text="${errors.getMessage('valueMedicalHistory222')}" class="error-message">
                                         </p>
                                     </div>
                                 </td>
@@ -195,7 +196,7 @@
                             <tr>
                                 <td>
                                     <label>携帯電話番号（半角）</label>
-                                    <p style="color:red;">＊</p>
+                                    <p style="color:red;"></p>
                                 </td>
                                 <td>
                                     <p>例：080-0000-0000</p>
@@ -203,8 +204,8 @@
                                          th:classappend="${errors.hasError('mobilePhoneNumber')} ? 'error'">
                                         <input type="text" name="mobilePhoneNumber"
                                                th:value="${form.mobilePhoneNumber}"/>
-                                        <p th:if="${errors.hasError('mobilePhoneNumber')}"
-                                           th:text="${errors.getMessage('mobilePhoneNumber')}" class="error-message">
+                                        <p th:if="${errors.hasError('valueMedicalHistory222')}"
+                                           th:text="${errors.getMessage('valueMedicalHistory222')}" class="error-message">
                                         </p>
                                     </div>
                                 </td>
