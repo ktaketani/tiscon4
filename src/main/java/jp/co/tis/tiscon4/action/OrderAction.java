@@ -11,6 +11,7 @@ import jp.co.tis.tiscon4.form.AcceptForm;
 import jp.co.tis.tiscon4.form.IndexForm;
 import jp.co.tis.tiscon4.form.JobForm;
 import jp.co.tis.tiscon4.form.UserForm;
+import nablarch.common.dao.EntityList;
 import nablarch.common.dao.UniversalDao;
 import nablarch.common.web.interceptor.InjectForm;
 import nablarch.common.web.session.SessionUtil;
@@ -83,6 +84,7 @@ public class OrderAction {
     @OnError(type = ApplicationException.class, path = "forward://inputUserForError")
     @UseToken
     public HttpResponse inputJob(HttpRequest req, ExecutionContext ctx) {
+
         UserForm form = ctx.getRequestScopedVar("form");
         InsuranceOrder insOrder = SessionUtil.get(ctx, "insOrder");
 
@@ -92,8 +94,9 @@ public class OrderAction {
             throw new ApplicationException(message);
         }
 
-        UniversalDao.findAllBySqlFile(ZipcodeDto.class, "ZIPCODE_LIST");
-
+        // EntityList<ZipcodeDto> aaa =  UniversalDao.findAllBySqlFile(ZipcodeDto.class, "ZIPCODE_LIST");
+        //使ってなかったので消した
+        
         BeanUtil.copy(form, insOrder);
 
         ctx.setRequestScopedVar("form", new JobForm());
