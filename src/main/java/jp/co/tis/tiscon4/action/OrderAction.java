@@ -1,6 +1,7 @@
 package jp.co.tis.tiscon4.action;
 
 import jp.co.tis.tiscon4.common.code.GenderType;
+import jp.co.tis.tiscon4.common.code.GenderType2;
 import jp.co.tis.tiscon4.common.code.IndustryType;
 import jp.co.tis.tiscon4.common.code.JobType;
 import jp.co.tis.tiscon4.common.code.MarriedType;
@@ -65,6 +66,7 @@ public class OrderAction {
     public HttpResponse inputUser(HttpRequest req, ExecutionContext ctx) {
         ctx.setRequestScopedVar("form", new UserForm());
         ctx.setRequestScopedVar("genderTypes", GenderType.values());
+        ctx.setRequestScopedVar("genderType", GenderType2.values());
         ctx.setRequestScopedVar("marriedTypes", MarriedType.values());
         ctx.setRequestScopedVar("jobTypes", JobType.values());
         ctx.setRequestScopedVar("treatedTypes", TreatedType.values());
@@ -86,12 +88,6 @@ public class OrderAction {
         UserForm form = ctx.getRequestScopedVar("form");
         InsuranceOrder insOrder = SessionUtil.get(ctx, "insOrder");
 
-        // treatLadyは女性しか加入できないため、性別選択チェックを行う。
-        if (insOrder.getInsuranceType().equals("treatLady") && form.getGender().equals("male")) {
-            Message message = ValidationUtil.createMessageForProperty("gender", "tiscon4.order.inputUser.error.gender");
-            throw new ApplicationException(message);
-        }
-
         UniversalDao.findAllBySqlFile(ZipcodeDto.class, "ZIPCODE_LIST");
 
         BeanUtil.copy(form, insOrder);
@@ -110,7 +106,9 @@ public class OrderAction {
      * @return HTTPレスポンス
      */
     public HttpResponse inputUserForError(HttpRequest req, ExecutionContext ctx) {
+
         ctx.setRequestScopedVar("genderTypes", GenderType.values());
+        ctx.setRequestScopedVar("genderType", GenderType2.values());
         ctx.setRequestScopedVar("marriedTypes", MarriedType.values());
         ctx.setRequestScopedVar("jobTypes", JobType.values());
         ctx.setRequestScopedVar("treatedTypes", TreatedType.values());
@@ -198,6 +196,7 @@ public class OrderAction {
 
         ctx.setRequestScopedVar("form", form);
         ctx.setRequestScopedVar("genderTypes", GenderType.values());
+        ctx.setRequestScopedVar("genderType", GenderType2.values());
         ctx.setRequestScopedVar("marriedTypes", MarriedType.values());
         ctx.setRequestScopedVar("jobTypes", JobType.values());
         ctx.setRequestScopedVar("treatedTypes", TreatedType.values());

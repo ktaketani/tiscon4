@@ -85,25 +85,56 @@
                             <tr>
                                 <td>
                                     <label>性別</label>
-                                    <p style="color:red;">＊</p>
+                                    <div>
+                                        <div th:if="${insOrder.insuranceType.equals('treat')}">
+                                            <p style="color:red;">＊</p>
+                                        </div>
+                                        <div th:if="${insOrder.insuranceType.equals('treatLady')}">
+                                            <p style="color:red;">こちらの保険は女性のみ加入できます。</p>
+                                        </div>
+                                        <div th:if="${insOrder.insuranceType.equals('future')}">
+                                            <p style="color:red;">＊</p>
+                                        </div>
+                                    </div>
+
                                 </td>
                                 <td>
-                                    <div th:each="item : ${genderTypes}" class="field"
-                                         th:classappend="${errors.hasError('gender')} ? 'error'">
-                                        <input type="radio" name="gender" th:value="${item.code}"
-                                               th:text="${item.label}" th:field="*{gender}"
-                                               th:checked="${form.gender}==${item.code}"/>
+                                    <div>
+                                        <div th:if="${insOrder.insuranceType.equals('treat')}">
+                                            <div th:each="item : ${genderTypes}" class="field"
+                                            th:classappend="${errors.hasError('gender')} ? 'error'">
+                                                <input type="radio" name="gender" th:value="${item.code}"
+                                                       th:text="${item.label}" th:field="*{gender}"
+                                                       th:checked="${form.gender}==${item.code}"/>
+                                            </div>
+                                        </div>
+                                        <div th:if="${insOrder.insuranceType.equals('treatLady')}">
+                                            <div th:each="item : ${genderType}" class="field"
+                                            th:classappend="${errors.hasError('gender')} ? 'error'">
+                                            <input type="radio" name="gender" th:value="${item.code}"
+                                                   th:text="${item.label}" th:field="*{gender}"
+                                                   th:checked="${form.gender}==${item.code}"/>
 
+                                        </div>
+                                        <div th:if="${insOrder.insuranceType.equals('future')}">
+                                            <div th:each="item : ${genderTypes}" class="field"
+                                            th:classappend="${errors.hasError('gender')} ? 'error'">
+                                                <input type="radio" name="gender" th:value="${item.code}"
+                                                       th:text="${item.label}" th:field="*{gender}"
+                                                       th:checked="${form.gender}==${item.code}"/>
+                                            </div>
+                                        </div>
+
+                                            <p th:if="${errors.hasError('gender')}" th:text="${errors.getMessage('gender')}"
+                                               class="error-message">
+                                            </p>
                                     </div>
-                                    <p th:if="${errors.hasError('gender')}" th:text="${errors.getMessage('gender')}"
-                                       class="error-message">
-                                    </p>
                                 </td>
 
                             </tr>
                             <tr>
                                 <td>
-                                    <label>生年月日（半角）</label>
+                                    <label>生年月日</label>
                                     <p style="color:red;">＊</p>
                                 </td>
                                 <td>
