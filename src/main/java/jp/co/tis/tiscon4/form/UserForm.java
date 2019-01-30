@@ -49,12 +49,10 @@ public class UserForm implements Serializable {
     private String address;
 
     /** 自宅電話番号 */
-    @Required
     @Domain("homePhoneNumber")
     private String homePhoneNumber;
 
     /** 携帯電話番号 */
-    @Required
     @Domain("mobilePhoneNumber")
     private String mobilePhoneNumber;
 
@@ -252,5 +250,13 @@ public class UserForm implements Serializable {
         }
         return true;
     }
+    @AssertTrue(message = "自宅または携帯の電話番号どちらかを入力して下さい。")
+    public boolean hasValueMedicalHistory222() {
+        if (StringUtil.isNullOrEmpty(mobilePhoneNumber) && StringUtil.isNullOrEmpty(homePhoneNumber)) {
+            return false;
+        }
+        return true;
+    }
+
 
 }
